@@ -10,7 +10,7 @@ func _process(_delta: float) -> void:
 		target.state_machine.push_create(EnemyStates.PatrolState, [])
 
 func _on_enter_state() -> void:
-	target.say("I feel at peace.")
+	target.say("No Player Nearby")
 
 func _on_leave_state() -> void:
-	target.say("I feel uneasy...")
+	target.say("Player Nearby")
