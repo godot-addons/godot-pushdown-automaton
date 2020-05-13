@@ -1,7 +1,5 @@
 extends "ProxyState.gd"
 
-#class_name IdleState
-
 func _init() -> void:
 	name = "IDLE"
 

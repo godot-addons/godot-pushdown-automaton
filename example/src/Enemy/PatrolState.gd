@@ -1,7 +1,5 @@
 extends "ProxyState.gd"
 
-#class_name PatrolState
-
 const PATROL_MAX_X: float = 600.0
 const PATROL_MIN_X: float = 200.0
 const PATROL_MAX_Y: float = 400.0
