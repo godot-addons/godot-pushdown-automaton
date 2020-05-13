@@ -26,7 +26,7 @@ func _process(delta: float) -> void:
 		state._process(delta)
 
 		# increment state_time by delta
-		state.state_time += delta
+		state.duration += delta
 		emit_signal("state_duration_updated", state.duration)
 	elif default_state != null:
 		# If state stack is empty, we push the default
@@ -41,7 +41,7 @@ func _physics_process(delta: float) -> void:
 		state._physics_process(delta)
 
 		# increment state_time by delta
-		state.state_time += delta
+		state.duration += delta
 		emit_signal("state_duration_updated", state.duration)
 	elif default_state != null:
 		# If state stack is empty, we push the default
@@ -74,7 +74,10 @@ func get_state() -> State:
 	# Check for first time running, and start state
 	if state.started == false:
 		connect("enter_state", state, "_on_enter_state")
+		connect("leave_state", state, "_on_leave_state")
+
 		emit_signal("enter_state")
+
 		state.started = true
 
 	return state

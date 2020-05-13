@@ -9,35 +9,10 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "ProxyState",
-"class": "AttackState",
-"language": "GDScript",
-"path": "res://example/src/Enemy/AttackState.gd"
-}, {
-"base": "Node2D",
-"class": "Enemy",
-"language": "GDScript",
-"path": "res://example/src/Enemy/Enemy.gd"
-}, {
-"base": "ProxyState",
-"class": "IdleState",
-"language": "GDScript",
-"path": "res://example/src/Enemy/IdleState.gd"
-}, {
-"base": "ProxyState",
-"class": "PatrolState",
-"language": "GDScript",
-"path": "res://example/src/Enemy/PatrolState.gd"
-}, {
 "base": "Area2D",
 "class": "Player",
 "language": "GDScript",
 "path": "res://example/src/Player/Player.gd"
-}, {
-"base": "",
-"class": "ProxyState",
-"language": "GDScript",
-"path": "res://example/src/Enemy/ProxyState.gd"
 }, {
 "base": "Resource",
 "class": "StateMachine",
@@ -45,12 +20,7 @@ _global_script_classes=[ {
 "path": "res://addons/fsm-pa/StateMachine.gd"
 } ]
 _global_script_class_icons={
-"AttackState": "",
-"Enemy": "",
-"IdleState": "",
-"PatrolState": "",
 "Player": "",
-"ProxyState": "",
 "StateMachine": ""
 }
 
@@ -59,6 +29,10 @@ _global_script_class_icons={
 config/name="Pushdown Automaton (Finite State Machine)"
 run/main_scene="res://example/src/World.tscn"
 config/icon="res://example/assets/bandit.png"
+
+[autoload]
+
+EnemyStates="*res://example/src/Enemy/EnemyStates.gd"
 
 [input]
 

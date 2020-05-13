@@ -1,6 +1,6 @@
-extends ProxyState
+extends "ProxyState.gd"
 
-class_name PatrolState
+#class_name PatrolState
 
 const PATROL_MAX_X: float = 600.0
 const PATROL_MIN_X: float = 200.0
@@ -20,11 +20,12 @@ func _process(_delta: float) -> void:
 
 	# We're close to the target, let's attack them
 	if target.has_enemies():
-		state_machine.transition("attack")
+		target.state_machine.pop()
+		target.state_machine.push_create(EnemyStates.AttackState, [])
 
 	# We're far from the player, stop patrolling
 	elif not target.should_patrol():
-		state_machine.transition("idle")
+		target.state_machine.pop()
 
 func check_for_new_patrol_direction() -> void:
 	"""

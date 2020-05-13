@@ -1,6 +1,6 @@
-extends ProxyState
+extends "ProxyState.gd"
 
-class_name AttackState
+#class_name AttackState
 
 func _init() -> void:
 	name = "ATTACK"
@@ -8,7 +8,7 @@ func _init() -> void:
 func _process(_delta: float) -> void:
 	if not target.has_enemies():
 		target.state_machine.pop()
-		target.state_machine.push_create(PatrolState, [])
+		target.state_machine.push_create(EnemyStates.PatrolState, [])
 		return
 
 	target.attack_enemies()
