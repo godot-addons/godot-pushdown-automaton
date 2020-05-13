@@ -9,7 +9,7 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "",
+"base": "ProxyState",
 "class": "AttackState",
 "language": "GDScript",
 "path": "res://example/src/Enemy/AttackState.gd"
@@ -19,12 +19,12 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://example/src/Enemy/Enemy.gd"
 }, {
-"base": "",
+"base": "ProxyState",
 "class": "IdleState",
 "language": "GDScript",
 "path": "res://example/src/Enemy/IdleState.gd"
 }, {
-"base": "",
+"base": "ProxyState",
 "class": "PatrolState",
 "language": "GDScript",
 "path": "res://example/src/Enemy/PatrolState.gd"
@@ -34,25 +34,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://example/src/Player/Player.gd"
 }, {
-"base": "Resource",
+"base": "",
 "class": "ProxyState",
 "language": "GDScript",
 "path": "res://example/src/Enemy/ProxyState.gd"
 }, {
 "base": "Resource",
-"class": "PushdownAutomaton",
-"language": "GDScript",
-"path": "res://addons/pda/StateMachine.gd"
-}, {
-"base": "Resource",
 "class": "StateMachine",
 "language": "GDScript",
-"path": "res://addons/fsm/StateMachine.gd"
-}, {
-"base": "Resource",
-"class": "StateMachineFactory",
-"language": "GDScript",
-"path": "res://addons/fsm/StateMachineFactory.gd"
+"path": "res://addons/fsm-pa/StateMachine.gd"
 } ]
 _global_script_class_icons={
 "AttackState": "",
@@ -61,9 +51,7 @@ _global_script_class_icons={
 "PatrolState": "",
 "Player": "",
 "ProxyState": "",
-"PushdownAutomaton": "",
-"StateMachine": "",
-"StateMachineFactory": ""
+"StateMachine": ""
 }
 
 [application]

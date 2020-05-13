@@ -2,37 +2,18 @@ extends Node2D
 
 class_name Enemy
 
-const StateMachineFactory = preload("res://addons/fsm/StateMachineFactory.gd")
-const IdleState = preload("IdleState.gd")
-const PatrolState = preload("PatrolState.gd")
-const AttackState = preload("AttackState.gd")
-
 const ENEMY_ATTACK_DISTANCE: float = 200.0
 const ENEMY_PATROL_DISTANCE: float = 400.0
 
 var last_shot_time: int = 0
-var state_machine: StateMachine
+var state_machine: StateMachine = StateMachine.new()
 
-onready var smf = StateMachineFactory.new()
 onready var player = $"/root/World/Player"
 onready var patrol_circle = $PatrolCircle
 onready var attack_circle = $AttackCircle
 
 func _ready() -> void:
-	state_machine = smf.create({
-		"target": self,
-		"current_state": "idle",
-		"states": [
-			{"id": "idle", "state": IdleState},
-			{"id": "patrol", "state": PatrolState},
-			{"id": "attack", "state": AttackState}
-		],
-		"transitions": [
-			{"state_id": "idle", "to_states": ["patrol", "attack"]},
-			{"state_id": "patrol", "to_states": ["idle", "attack"]},
-			{"state_id": "attack", "to_states": ["idle", "patrol"]}
-		]
-	})
+	state_machine.default_state = state_machine.state_create(IdleState)
 
 	# Here we setup the ranges around the unit for visual aids
 	patrol_circle.points = 64

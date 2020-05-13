@@ -1,16 +1,15 @@
-extends "ProxyState.gd"
+extends ProxyState
 
 class_name IdleState
 
-func _init().():
-	process_enabled = true
-	enter_state_enabled = true
-	leave_state_enabled = true
+func _init() -> void:
+	name = "IDLE"
 
 func _process(_delta: float) -> void:
 	# Start patrolling when the player gets closer to us
 	if target.should_patrol():
-		state_machine.transition("patrol")
+		target.state_machine.pop()
+		target.state_machine.push_create(PatrolState, [])
 
 func _on_enter_state() -> void:
 	target.say("I feel at peace.")

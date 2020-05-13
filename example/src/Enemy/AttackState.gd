@@ -1,15 +1,14 @@
-extends "ProxyState.gd"
+extends ProxyState
 
 class_name AttackState
 
-func _init().():
-	process_enabled = true
-	enter_state_enabled = true
-	leave_state_enabled = true
+func _init() -> void:
+	name = "ATTACK"
 
 func _process(_delta: float) -> void:
 	if not target.has_enemies():
-		state_machine.transition("patrol")
+		target.state_machine.pop()
+		target.state_machine.push_create(PatrolState, [])
 		return
 
 	target.attack_enemies()
