@@ -1,9 +1,5 @@
 extends Node2D
 
-#class_name Enemy
-
-#const EnemyStates = preload("EnemyStates.gd")
-
 const ENEMY_ATTACK_DISTANCE: float = 200.0
 const ENEMY_PATROL_DISTANCE: float = 400.0
 

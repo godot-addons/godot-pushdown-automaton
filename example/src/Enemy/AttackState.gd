@@ -1,7 +1,5 @@
 extends "ProxyState.gd"
 
-#class_name AttackState
-
 func _init() -> void:
 	name = "ATTACK"
 
@@ -14,7 +12,7 @@ func _process(_delta: float) -> void:
 	target.attack_enemies()
 
 func _on_enter_state() -> void:
-	target.say("Detected player")
+	target.say("Player Detected")
 
 func _on_leave_state() -> void:
-	target.say("Lost track of player")
+	target.say("No Player Detected")

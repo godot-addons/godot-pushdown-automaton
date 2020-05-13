@@ -1,98 +1,25 @@
-# godot-finite-state-machine
+# godot-pushdown-automaton
 
-Godot FSM (Finite State Machine)
+Godot Pushdown Automaton FSM (Finite State Machine)
 
-This is a second FSM for Godot that is purely code-only (no editor plugin).
+This is a FSM for Godot that is purely code-only (no editor plugin), and implements a stack (Pushdown Automaton).
 
 # Examples
 
-## Configuration-based Setup
-
-This first example is the "best" way to create an FSM instance, by passing a configuration dictionary to the `StateMachineFactory.create()` method.
-
-Notice the states property is an array of dictionaries, and we pass IdleState and PatrolState. The state machine handles creating new instances of the states via this method.
+## Setup
 
 ```gdscript
-const StateMachineFactory = preload("res://addons/fsm/StateMachineFactory.gd")
+extends Node2D
+
+const StateMachine = preload("res://addons/fsm/StateMachine.gd")
 const IdleState = preload("IdleState.gd")
-const PatrolState = preload("PatrolState.gd")
 
 # Create new state machine factory
-var smf = StateMachineFactory.new()
+var sm: StateMachine = StateMachine.new()
 
-# Create state machine using a configuration dictionary
-var sm = smf.create({
-  "target": $Enemy,
-  "current_state": "patrol",
-  "states": [
-    {"id": "idle", "state": IdleState},
-    {"id": "patrol", "state": PatrolState}
-  ],
-  "transitions": [
-    {"state_id": "idle", "to_states": ["patrol"]},
-    {"state_id": "patrol", "to_states": ["idle"]}
-  ]
-})
-```
-
-## Manual Setup
-
-This method shows how to manually create and setup a FSM object.
-
-```gdscript
-const StateMachineFactory = preload("res://addons/fsm/StateMachineFactory.gd")
-const IdleState = preload("IdleState.gd")
-const PatrolState = preload("PatrolState.gd")
-
-# Create state manually
-var smf = StateMachineFactory.new()
-var sm = smf.create()
-
-# Create states
-var idle_state = IdleState.new()
-var patrol_state = PatrolState.new()
-
-# Add the id, state machine, and target to the states (also handled by the state machine, just shown for completeness)
-idle_state.id = "idle"
-idle_state.state_machine = sm
-idle_state.target = $Enemy
-
-patrol_state.id = "patrol"
-patrol_state.state_machine = sm
-patrol_state.target = $Enemy
-
-# Convenience method to set state machine on array of states
-sm.set_state_machine([idle_state, patrol_state])
-
-# Add state to state machine, which also adds the state machine to the state
-sm.add_state("idle", idle_state)
-sm.add_state("patrol", patrol_state)
-
-# Set states method which accepts the same array of state dictionaries as the create factory method
-sm.set_states([
-  {"id": "idle", "state": IdleState},
-  {"id": "patrol", "state": PatrolState}
-])
-
-# Add transitions. Must be done after adding states, as the state ids are validated
-sm.add_transition("idle", ["patrol"])
-sm.add_transition("patrol", ["idle"])
-
-# Set transitions method which accepts the same array of transition dictionaries as the create factory method
-sm.set_transitions([
-  {"state_id": "idle", "to_states": ["patrol"]},
-  {"state_id": "patrol", "to_states": ["idle"]}
-])
-
-# Add a single transition
-sm.add_transition("idle", "patrol")
-sm.add_transition("patrol", "idle")
-
-# Add the target node/object to the state machine
-sm.set_target(get_tree().get_root().get_node("enemy"))
-
-# Set the initial state of the state machine
-sm.set_current_state("patrol")
+func _ready() -> void:
+  sm.target = self
+  sm.default_state = sm.state_create(IdleState)
 ```
 
 ## State Machine
@@ -101,7 +28,6 @@ sm.set_current_state("patrol")
 
 ```gdscript
 # Set the state machine's target (recursively sets on states)
-sm.set_target($Player)
 sm.target = $Player
 
 # Get state machine's target object
@@ -112,14 +38,10 @@ var player = sm.target
 
 ```gdscript
 # Set the state machine's current state. This really should be called internally by the state machine only.
-sm.set_current_state("patrol")
-sm.current_state = "patrol"
-
-# Get the state machine's current state
-var state = sm.get_state(sm.current_state)
+var state = sm.get_state()
 ```
 
-### State Machine Transition
+### (WIP) - State Machine Transition
 
 The transition method of the state machine will validate that the id passed is a valid state. It will call the current state's `_on_leave_state` callback if implemented. It will then call the to state's `_on_enter_state` method.
 
@@ -137,17 +59,20 @@ The state manager exposes callback methods for `_process(delta)`, `_physics_proc
 sm._physics_process(delta)
 sm._process(delta)
 sm._input(event)
+sm._on_enter_state()
+sm._on_leave_state()
 ```
 
 ## State
 
-### State ID
+### (WIP) - State ID
 
-Each state stores its own ID.
+Each state stores its own name.
 
 ```gdscript
-var smf = StateMachineFactory.new()
-var sm = smf.create()
+var sm = StateMachine.new()
+sm.target = $Player
+sm.default_state = sm.create_push(IdleState)
 
 var state = IdleState.new()
 state.sm = sm

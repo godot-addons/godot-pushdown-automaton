@@ -1,7 +1,5 @@
 extends "ProxyState.gd"
 
-#class_name PatrolState
-
 const PATROL_MAX_X: float = 600.0
 const PATROL_MIN_X: float = 200.0
 const PATROL_MAX_Y: float = 400.0
@@ -39,7 +37,11 @@ func check_for_new_patrol_direction() -> void:
 	# We've gone too far left or right
 	if position.x > PATROL_MAX_X or position.x < PATROL_MIN_X:
 		_patrol_direction *= Vector2(-1, 1)
+		return
 
 	# We've gone too far up or down
 	if position.y > PATROL_MAX_Y or position.y < PATROL_MIN_Y:
 		_patrol_direction *= Vector2(1, -1)
+		return
+
+	_patrol_direction = position
