@@ -127,3 +127,7 @@ func move_to_random(delta: float) -> void:
 func _on_enter_state() -> void:
   memory = 100
 ```
+
+# Credits / Links
+
+Code borrowed from https://gitlab.com/reefpirate/finite_stack_machine/-/tree/master and then updated/refactored in alignment with godot-finite-state-machine, including example/demo.
